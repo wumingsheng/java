@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>map遍历 - Java基础知识</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Java\u4e2d\u904d\u5386Map\u7684\u51e0\u79cd\u65b9\u6cd5", url: "#_top", children: [
+              {title: "keySet values", url: "#keyset-values" },
+              {title: "keySet get(key)", url: "#keyset-getkey" },
+              {title: "entrySet", url: "#entryset" },
+              {title: "Iterator", url: "#iterator" },
+              {title: "Lambda", url: "#lambda" },
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+
+    <h2 id="javamap">Java中遍历Map的几种方法</h2>
+<h3 id="keyset-values"><strong>keySet values</strong></h3>
+<p>如果只需要map的key或者value，用map的keySet或values方法无疑是最方便的</p>
+<pre><code class="java">for (String key : map.keySet()) {
+
+            System.out.println(key);
+
+}
+</code></pre>
+
+<h3 id="keyset-getkey"><strong>keySet get(key)</strong></h3>
+<p>如果需要同时获取key和value，可以先获取key,然后再通过map的get(key)获取value</p>
+<p>需要说明的是，该方法不是最优选择，一般不推荐使用</p>
+<pre><code class="java">for (String key : map.keySet()) {
+
+            System.out.println(key);
+            System.out.println(map.get(key));
+
+        }
+</code></pre>
+
+<h3 id="entryset"><strong>entrySet</strong></h3>
+<p>通过对map entrySet的遍历，也可以同时拿到key和value，一般情况下，性能上要优于上一种,这一种也是最常用的遍历方法</p>
+<pre><code class="java">for (Map.Entry&lt;String,Object&gt; entry : map.entrySet()) {
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
+        }
+</code></pre>
+
+<h3 id="iterator"><strong>Iterator</strong></h3>
+<p>对于上面的几种foreach都可以用Iterator代替，其实foreach在java5中才被支持，foreach的写法看起来更简洁</p>
+<p>但Iterator也有其优势：在用foreach遍历map时，如果改变其大小，会报错，但如果只是删除元素，可以使用Iterator的remove方法删除元素</p>
+<pre><code class="java">Iterator&lt;Entry&lt;String, Object&gt;&gt; iterator = map.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry&lt;String,Object&gt; entry = iterator.next();
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
+            iterator.remove();//删除元素
+
+        }
+</code></pre>
+
+<h3 id="lambda"><strong>Lambda</strong></h3>
+<p>java8提供了Lambda表达式支持，语法看起来更简洁，可以同时拿到key和value，不过，经测试，性能低于entrySet,所以更推荐用entrySet的方式</p>
+<pre><code class="java">map.forEach((key,value)-&gt;{
+            System.out.println(key);
+            System.out.println(value);
+        });
+</code></pre>
+
+<p>总结</p>
+<ol>
+<li>如果只是获取key，或者value，推荐使用keySet或者values方式</li>
+<li>如果同时需要key和value推荐使用entrySet</li>
+<li>如果需要在遍历过程中删除元素推荐使用Iterator</li>
+<li>如果需要在遍历过程中增加元素，可以新建一个临时map存放新增的元素，等遍历完毕，再把临时map放到原来的map中</li>
+</ol>
+
+  <br>
+    
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
