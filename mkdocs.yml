@@ -8,3 +8,4 @@ theme:
   name: windmill
 nav:
   - map遍历: map-foreach.md
+  - regex表达式: regex.md
