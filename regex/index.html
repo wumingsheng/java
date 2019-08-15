@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>regex表达式 - Java基础知识</title>
+    <link href="../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "1 . \u6821\u9a8c\u5bc6\u7801\u5f3a\u5ea6", url: "#_top", children: [
+          ]},
+          {title: "2. \u6821\u9a8c\u4e2d\u6587", url: "#2", children: [
+          ]},
+          {title: "3. \u7531\u6570\u5b57\u300126\u4e2a\u82f1\u6587\u5b57\u6bcd\u6216\u4e0b\u5212\u7ebf\u7ec4\u6210\u7684\u5b57\u7b26\u4e32", url: "#3-26", children: [
+          ]},
+          {title: "4. \u6821\u9a8cE-Mail \u5730\u5740", url: "#4-e-mail", children: [
+          ]},
+          {title: "5. \u6821\u9a8c\u8eab\u4efd\u8bc1\u53f7\u7801", url: "#5", children: [
+          ]},
+          {title: "6. \u6821\u9a8c\u65e5\u671f", url: "#6", children: [
+          ]},
+          {title: "7. \u6821\u9a8c\u91d1\u989d", url: "#7", children: [
+          ]},
+          {title: "8. \u6821\u9a8c\u624b\u673a\u53f7", url: "#8", children: [
+          ]},
+          {title: "9. \u5224\u65adIE\u7684\u7248\u672c", url: "#9-ie", children: [
+          ]},
+          {title: "10. \u6821\u9a8cIP-v4\u5730\u5740", url: "#10-ip-v4", children: [
+          ]},
+          {title: "11. \u6821\u9a8cIP-v6\u5730\u5740", url: "#11-ip-v6", children: [
+          ]},
+          {title: "12. \u68c0\u67e5URL\u7684\u524d\u7f00", url: "#12-url", children: [
+          ]},
+          {title: "13. \u63d0\u53d6URL\u94fe\u63a5", url: "#13-url", children: [
+          ]},
+          {title: "14. \u6587\u4ef6\u8def\u5f84\u53ca\u6269\u5c55\u540d\u6821\u9a8c", url: "#14", children: [
+          ]},
+          {title: "15. \u63d0\u53d6Color Hex Codes", url: "#15-color-hex-codes", children: [
+          ]},
+          {title: "16. \u63d0\u53d6\u7f51\u9875\u56fe\u7247", url: "#16", children: [
+          ]},
+          {title: "17. \u63d0\u53d6\u9875\u9762\u8d85\u94fe\u63a5", url: "#17", children: [
+          ]},
+          {title: "18. \u67e5\u627eCSS\u5c5e\u6027", url: "#18-css", children: [
+          ]},
+          {title: "19. \u62bd\u53d6\u6ce8\u91ca", url: "#19", children: [
+          ]},
+          {title: "20. \u5339\u914dHTML\u6807\u7b7e", url: "#20-html", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="../map-foreach/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../map-foreach/" class="btn btn-xs btn-link">
+        map遍历
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <p>正则表达式，一个十分古老而又强大的文本处理工具，仅仅用一段非常简短的表达式语句，便能够快速实现一个非常复杂的业务逻辑。熟练地掌握正则表达式的话，能够使你的开发效率得到极大的提升。</p>
+<p>正则表达式经常被用于字段或任意字符串的校验，如下面这段校验基本日期格式的JavaScript代码：</p>
+<pre><code class="javascript">var reg = /^(\\d{1,4})(-|\\/)(\\d{1,2})\\2(\\d{1,2})$/; 
+var r = fieldValue.match(reg); 
+if(r==null)alert('Date format error!'); 
+</code></pre>
+
+<p>下面是技匠整理的，在前端开发中经常使用到的20个正则表达式。</p>
+<h2 id="1">1 . 校验密码强度</h2>
+<p>密码的强度必须是包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间。</p>
+<pre><code>^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$
+</code></pre>
+
+<h2 id="2">2. 校验中文</h2>
+<p>字符串仅能是中文。</p>
+<pre><code>^[\\\u4e00-\\\u9fa5]{0,}$
+</code></pre>
+
+<h2 id="3-26">3. 由数字、26个英文字母或下划线组成的字符串</h2>
+<pre><code>^\\w+$
+</code></pre>
+
+<h2 id="4-e-mail">4. 校验E-Mail 地址</h2>
+<p>同密码一样，下面是E-mail地址合规性的正则检查语句。</p>
+<pre><code>[\\w!#$%&amp;'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?
+
+</code></pre>
+
+<h2 id="5">5. 校验身份证号码</h2>
+<p>下面是身份证号码的正则校验。15 或 18位。</p>
+<p>15位：</p>
+<pre><code>^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$
+
+</code></pre>
+
+<p>18位：</p>
+<pre><code>
+^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$
+
+</code></pre>
+
+<h2 id="6">6. 校验日期</h2>
+<p>“yyyy-mm-dd“ 格式的日期校验，已考虑平闰年。</p>
+<pre><code>^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$
+
+
+</code></pre>
+
+<h2 id="7">7. 校验金额</h2>
+<p>金额校验，精确到2位小数。</p>
+<pre><code>^[0-9]+(.[0-9]{2})?$
+
+</code></pre>
+
+<h2 id="8">8. 校验手机号</h2>
+<p>下面是国内 13、15、18开头的手机号正则表达式。（可根据目前国内收集号扩展前两位开头号码）</p>
+<pre><code>^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$
+
+</code></pre>
+
+<h2 id="9-ie">9. 判断IE的版本</h2>
+<p>IE目前还没被完全取代，很多页面还是需要做版本兼容，下面是IE版本检查的表达式。</p>
+<pre><code>^.*MSIE [5-8](?:\\.[0-9]+)?(?!.*Trident\\/[5-9]\\.0).*$
+
+</code></pre>
+
+<h2 id="10-ip-v4">10. 校验IP-v4地址</h2>
+<p>IP4 正则语句。</p>
+<pre><code>\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b
+
+</code></pre>
+
+<h2 id="11-ip-v6">11. 校验IP-v6地址</h2>
+<p>IP6 正则语句。</p>
+<pre><code>
+(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))
+
+</code></pre>
+
+<h2 id="12-url">12. 检查URL的前缀</h2>
+<p>应用开发中很多时候需要区分请求是HTTPS还是HTTP，通过下面的表达式可以取出一个url的前缀然后再逻辑判断。</p>
+<pre><code>if (!s.match(/^[a-zA-Z]+:\\/\\//))
+{
+ s = 'http://' + s;
+}
+
+</code></pre>
+
+<h2 id="13-url">13. 提取URL链接</h2>
+<p>下面的这个表达式可以筛选出一段文本中的URL。</p>
+<pre><code>^(f|ht){1}(tp|tps):\\/\\/([\\w-]+\\.)+[\\w-]+(\\/[\\w- ./?%&amp;=]*)?
+
+</code></pre>
+
+<h2 id="14">14. 文件路径及扩展名校验</h2>
+<p>验证windows下文件路径和扩展名（下面的例子中为.txt文件）</p>
+<pre><code>^([a-zA-Z]\\:|\\\\)\\\\([^\\\\]+\\\\)*[^\\/:*?&quot;&lt;&gt;|]+\\.txt(l)?$
+
+</code></pre>
+
+<h2 id="15-color-hex-codes">15. 提取Color Hex Codes</h2>
+<p>有时需要抽取网页中的颜色代码，可以使用下面的表达式。</p>
+<pre><code>^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$
+
+</code></pre>
+
+<h2 id="16">16. 提取网页图片</h2>
+<p>假若你想提取网页中所有图片信息，可以利用下面的表达式。</p>
+<pre><code>\\&lt; *[img][^\\\\&gt;]*[src] *= *[\\&quot;\\']{0,1}([^\\&quot;\\'\\ &gt;]*)
+</code></pre>
+
+<h2 id="17">17. 提取页面超链接</h2>
+<p>提取html中的超链接。</p>
+<pre><code>(&lt;a\\s*(?!.*\\brel=)[^&gt;]*)(href=&quot;https?:\\/\\/)((?!(?:(?:www\\.)?'.implode('|(?:www\\.)?', $follow_list).'))[^&quot;]+)&quot;((?!.*\\brel=)[^&gt;]*)(?:[^&gt;]*)&gt;
+
+</code></pre>
+
+<h2 id="18-css">18. 查找CSS属性</h2>
+<p>通过下面的表达式，可以搜索到相匹配的CSS属性。</p>
+<pre><code>^\\s*[a-zA-Z\\-]+\\s*[:]{1}\\s[a-zA-Z0-9\\s.#]+[;]{1}
+</code></pre>
+
+<h2 id="19">19. 抽取注释</h2>
+<p>如果你需要移除HMTL中的注释，可以使用如下的表达式。</p>
+<pre><code>&lt;!--(.*?)--&gt;
+</code></pre>
+
+<h2 id="20-html">20. 匹配HTML标签</h2>
+<p>通过下面的表达式可以匹配出HTML中的标签属性。</p>
+<pre><code>&lt;\\/?\\w+((\\s+\\w+(\\s*=\\s*(?:&quot;.*?&quot;|'.*?'|[\\^'&quot;&gt;\\s]+))?)+\\s*|\\s*)\\/?&gt;
+
+</code></pre>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="../map-foreach/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../map-foreach/" class="btn btn-xs btn-link">
+        map遍历
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="col-md-12 wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
